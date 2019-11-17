@@ -1,0 +1,66 @@
+@charset "EUC-KR";
+
+#container{
+	background: #000000;
+	width: 300px;
+	height: 650px;
+	padding: 0px 50px 50px 50px;
+	text-align: center;
+	border: solid;
+	border-color: white;
+	border-width: 0.5px;
+	border-radius: 5px;
+	color: white;
+}
+
+.loginfo{
+	width: 100%;
+	height;
+}
+
+.basicLogInfo{
+	width: 180px;
+	height: 50px;
+	background: #A52A2A	;
+	margin: 30px 0px 10px 50px;
+	border: solid;
+	border-color: white;
+	border-width: 0.5px;
+	border-radius: 5px;
+	position: relative;
+}
+
+.submitButton{
+	text-align: center;
+	margin: 20px 40px 20px 20px;
+	
+}
+#bttn{
+	border: 0;
+	background: #A9A9F5;
+	color: white;
+	border: solid;
+	border-color: white;
+	border-width: 0.5px;
+	border-radius: 3px;
+}
+
+#cancelbttn{
+	border: 0;
+	background: #FA5858;
+	color: white;
+	border: solid;
+	border-color: white;
+	border-width: 0.5px;
+	border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+
+

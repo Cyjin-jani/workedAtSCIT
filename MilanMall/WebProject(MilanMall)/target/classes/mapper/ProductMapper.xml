@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="com.scmaster.milanmall.shopping.dao.ProductMapper">
+
+<select id="selectProdOne" parameterType="string" resultType="product">
+	select 
+		prod_name
+		,prod_num
+		,prod_ea
+		,prod_price
+		,prod_hits
+		,prod_category
+		,prod_size
+		,prod_imgpath
+	from
+		product
+	where
+		prod_num = #{prod_num} 		
+	
+</select>
+
+<select id="selectAll" resultType="product">
+	select 
+		prod_name
+		,prod_num
+		,prod_ea
+		,prod_price
+		,prod_hits
+		,prod_category
+		,prod_size
+		,prod_imgpath
+	from
+		product
+	where
+		main = 1	
+	order by
+		prod_name
+</select>
+
+
+<select id="searchOne" parameterType="product" resultType="String">
+	select 
+		prod_num
+	from
+		product
+	where
+		prod_name = #{prod_name}
+		and prod_size = #{prod_size}	
+	
+</select>
+
+	
+	
+	
+	
+	
+	
+</mapper>

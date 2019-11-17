@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scmaster.milanmall.board.dao.BoardMapper">
+	
+	<insert id="writeOne" parameterType="board">
+		insert into
+			revw_board
+			(
+				revw_boardnum
+				,revw_id
+				,revw_title
+				,revw_content
+				<if test="revw_originalfile != null and revw_savedfile != null">
+				,revw_originalfile
+				,revw_savedfile
+				</if>
+			)values(
+				revw_board_seq.nextval
+				,#{revw_id}
+				,#{revw_title}
+				,#{revw_content}
+				<if test="revw_originalfile != null and revw_savedfile != null">
+				,#{revw_originalfile}
+				,#{revw_savedfile}
+				</if>
+			)
+	</insert>
+	
+	
+	<select id="showList" parameterType="hashmap" resultType="board">
+		select
+			revw_boardnum
+			,revw_title
+			,revw_id
+			,revw_hits
+			,to_char(revw_inputdate, 'YYYY-MM-DD') revw_inputdate
+		from
+			revw_board
+			<if test="searchText != null">
+		where	
+			${searchSelect} like '%' || #{searchText} || '%' 
+		</if>
+		order by
+			revw_boardnum desc
+	</select>
+	
+	<select id="readOne" parameterType="int" resultType="board">
+		select
+			revw_boardnum
+			,revw_title
+			,revw_id
+			,revw_content
+			,revw_hits
+			,to_char(revw_inputdate, 'YYYY-MM-DD') revw_inputdate
+			,revw_originalfile
+			,revw_savedfile
+		from
+			revw_board
+		where
+			revw_boardnum = #{revw_boardnum}	
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update
+			revw_board
+		set
+			revw_hits = revw_hits+1
+		where
+			revw_boardnum = #{revw_boardnum}	
+	</update>
+	
+	<update id="updateHit2" parameterType="int">
+		update
+			revw_board
+		set
+			revw_hits = revw_hits-1
+		where
+			revw_boardnum = #{revw_boardnum}	
+	</update>
+	
+	
+	<delete id="deleteOne" parameterType="board">
+		delete from
+			revw_board
+		where
+			revw_id = #{revw_id}
+			and revw_boardnum = #{revw_boardnum}	
+	</delete>
+	
+	<select id="selectBoardOne" parameterType="board" resultType="board">
+		select
+			revw_boardnum
+			,revw_title
+			,revw_id
+			,revw_content
+			,revw_hits
+			,to_char(revw_inputdate, 'YYYY-MM-DD') revw_inputdate
+			,revw_originalfile
+			,revw_savedfile
+		from
+			revw_board
+		where
+			revw_boardnum = #{revw_boardnum}	
+		and
+			revw_id = #{revw_id}
+	</select>
+	
+	<update id="updateOne" parameterType="board">
+		update
+			revw_board
+		set
+			revw_title = #{revw_title} 
+			,revw_content = #{revw_content}
+			<if test="revw_originalfile != null and revw_savedfile != null">
+			,revw_originalfile = #{revw_originalfile}
+			,revw_savedfile = #{revw_savedfile}
+			</if>
+		where
+			revw_boardnum = #{revw_boardnum}
+		and
+			revw_id = #{revw_id}		
+	</update>
+	
+	
+	<select id="getTotal" parameterType="hashmap" resultType="int">
+		select
+			count(*)
+		from
+			revw_board
+		<if test="searchText != null">
+		where	
+			${searchSelect} like '%' || #{searchText} || '%' 
+		</if>		
+	</select>
+	
+	<insert id="insertReply" parameterType="reply">
+		insert into
+			revw_reply
+		(
+			rep_replynum
+			,revw_boardnum
+			,rep_id
+			,rep_text
+		)values(
+			rep_reply_seq.nextval
+			,#{revw_boardnum}
+			,#{rep_id}
+			,#{rep_text}
+		)	
+	
+	</insert>
+	
+	<select id="selectReplyAll" parameterType="int" resultType="reply">
+		
+		select
+			rep_replynum
+			,revw_boardnum
+			,rep_id
+			,rep_text
+			,to_char(rep_inputdate, 'yyyy-MM-dd') rep_inputdate
+		from
+			revw_reply
+		where
+			revw_boardnum = #{revw_boardnum}
+		order by
+			rep_replynum desc			
+		
+	</select>
+	
+	<delete id="deleteReply" parameterType="reply">
+		delete from
+			revw_reply
+		where
+			rep_replynum = #{rep_replynum}
+		and
+			rep_id = #{rep_id}
+					
+	</delete>
+	
+	<update id="updateReply" parameterType="reply">
+		update
+			revw_reply
+		set
+			rep_text = #{rep_text}
+		where
+			rep_replynum = #{rep_replynum}
+		and
+			rep_id = #{rep_id}
+						
+	</update>
+	
+</mapper>

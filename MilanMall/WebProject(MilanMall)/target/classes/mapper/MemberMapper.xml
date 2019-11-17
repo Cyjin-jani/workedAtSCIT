@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="com.scmaster.milanmall.member.dao.MemberMapper">
+
+<select id="selectOne" parameterType="string" resultType="member">
+	select 
+		member_id
+		,password
+		,name
+		,email
+		,address
+		,phonenum
+		,to_char(joindate, 'YYYY-MM-DD') joindate
+	from
+		member_milan
+	where
+		member_id = #{id} 		
+	
+</select>
+
+<insert id="insertMember" parameterType="member">
+	insert into
+	 	member_milan
+	 	(
+			member_id
+			,password
+			,name
+			,email
+			,address
+			,phonenum
+		)values(
+			#{member_id}
+			,#{password}
+			,#{name}
+			,#{email}
+			,#{address}
+			,#{phonenum}
+		)
+</insert>
+
+<update id="updateMember" parameterType="member">
+		update
+			member_milan
+			set
+				password = #{password}
+				,name = #{name}
+				,email = #{email}
+				,phonenum = #{phonenum}
+				,address = #{address}
+		where
+			member_id = #{member_id}		
+	</update>
+	
+</mapper>
